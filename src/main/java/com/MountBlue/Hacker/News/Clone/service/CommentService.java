@@ -26,6 +26,10 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
+    public ResponseEntity<String> getAllComment() {
+        List<Comment> commentList = commentRepository.findAll();
+        return new ResponseEntity<>("List of all comment present on all posts:" + commentList, HttpStatus.OK);
+    }
     public ResponseEntity<String> getAllCommentByPost(int postId){
         if(postRepository.existsById(postId)) {
             Post post = postRepository.findById(postId).get();
