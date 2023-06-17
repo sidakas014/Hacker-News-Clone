@@ -47,4 +47,9 @@ public class PostService {
             return new ResponseEntity<>("Post with id is not present please create the new post",HttpStatus.NOT_FOUND);
         }
     }
+
+    public List<Post> getPostById(int postId) {
+        List<Post> postList = postRepository.findById(postId).stream().toList();
+        return postList;
+    }
 }

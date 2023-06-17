@@ -1,5 +1,4 @@
 package com.MountBlue.Hacker.News.Clone.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,6 +26,5 @@ public class Post {
     private Date createdAt;
     @OneToMany
     @JsonIgnore
-    private Comment commentId;
-
+    private List<Comment> commentId;
 }
