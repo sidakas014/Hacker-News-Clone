@@ -31,10 +31,8 @@ public class CommentService {
         if(postRepository.findById(postId).isPresent()) {
             Post post = postRepository.findById(postId).get();
             commentList = post.getCommentId();
-            return commentList;
-        }else{
-            return commentList;
         }
+        return commentList;
     }
 
     public void saveCommentData(Comment comment) {
