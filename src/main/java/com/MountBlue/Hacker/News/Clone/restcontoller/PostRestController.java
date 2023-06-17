@@ -1,4 +1,4 @@
-package com.MountBlue.Hacker.News.Clone.contoller;
+package com.MountBlue.Hacker.News.Clone.restcontoller;
 
 import com.MountBlue.Hacker.News.Clone.dto.PostDto;
 import com.MountBlue.Hacker.News.Clone.model.Post;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/HackerNews")
-public class PostController {
+public class PostRestController {
     private final PostService postService;
 
-    public PostController(PostService postService) {
+    public PostRestController(PostService postService) {
         this.postService = postService;
     }
 
