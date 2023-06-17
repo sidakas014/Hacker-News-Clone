@@ -3,6 +3,7 @@ package com.MountBlue.Hacker.News.Clone.restcontoller;
 import com.MountBlue.Hacker.News.Clone.dto.CommentDto;
 import com.MountBlue.Hacker.News.Clone.model.Comment;
 import com.MountBlue.Hacker.News.Clone.service.CommentService;
+import com.MountBlue.Hacker.News.Clone.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/HackerNews")
 public class CommentRestController {
     private final CommentService commentService;
-    public CommentRestController(CommentService commentService) {
+    private final PostService postService;
+    public CommentRestController(CommentService commentService, PostService postService) {
         this.commentService = commentService;
+        this.postService = postService;
     }
 
     @GetMapping("/getAllComment")
     public ResponseEntity<String> getAllCommentByPost(@RequestParam(required = false) Integer postId) {
         if (postId == null) {
-            return commentService.getAllComment();
+            return new ResponseEntity<>("List of all comment present on all posts:" + commentService.getAllComment(), HttpStatus.OK);
         } else {
-            return commentService.getAllCommentByPost(postId);
+            if (postService.getPostById(postId) == null) {
+                return new ResponseEntity<>("Post With the id " + postId + "Is not available", HttpStatus.NOT_FOUND);
+            }else {
+                return new ResponseEntity<>("List of comment :"+commentService.getAllCommentByPost(postId), HttpStatus.OK) ;
+            }
         }
     }
 
@@ -30,7 +37,7 @@ public class CommentRestController {
         comment.setName(commentDto.getName());
         comment.setEmail(commentDto.getEmail());
         comment.setComment(commentDto.getComment());
-        return commentService.saveCommentData(comment);
+        return new ResponseEntity<>("Comment saved successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteComment")
@@ -38,13 +45,21 @@ public class CommentRestController {
         if (commentId == null){
             return new ResponseEntity<>("No Comment ID was given.", HttpStatus.NOT_FOUND);
         }else {
-            commentService.deleteCommentById(commentId);
-            return new ResponseEntity<>("Comment deleted", HttpStatus.OK);
+            if (commentService.getCommentById(commentId) != null) {
+                commentService.deleteCommentById(commentId);
+                return new ResponseEntity<>("Comment deleted", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("No Comment present with comment ID" + commentId, HttpStatus.NOT_FOUND);
+            }
         }
     }
 
     @PutMapping("/updateComment")
     public ResponseEntity<String> updatePost(@RequestParam int commentId,@RequestBody CommentDto commentDto){
-        return commentService.UpdateCommentById(commentId,commentDto);
+        if (commentService.getCommentById(commentId) != null) {
+            commentService.UpdateCommentById(commentId,commentDto);
+            return new ResponseEntity<>("Comment Has been updated",HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>("Comment with id is not present please create the new post",HttpStatus.NOT_FOUND);
     }
 }
