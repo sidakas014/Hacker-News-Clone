@@ -19,6 +19,6 @@ public class PostController {
 
     @GetMapping
     public List<Post> getAllPosts(){
-
+        return null;
     }
 }
