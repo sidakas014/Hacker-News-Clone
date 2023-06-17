@@ -1,4 +1,4 @@
-package com.MountBlue.Hacker.News.Clone.contoller;
+package com.MountBlue.Hacker.News.Clone.restcontoller;
 
 import com.MountBlue.Hacker.News.Clone.dto.CommentDto;
 import com.MountBlue.Hacker.News.Clone.model.Comment;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/HackerNews")
-public class CommentController {
+public class CommentRestController {
     private final CommentService commentService;
-    public CommentController(CommentService commentService) {
+    public CommentRestController(CommentService commentService) {
         this.commentService = commentService;
     }
 
