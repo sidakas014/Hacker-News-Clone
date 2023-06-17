@@ -37,6 +37,7 @@ public class CommentRestController {
         comment.setName(commentDto.getName());
         comment.setEmail(commentDto.getEmail());
         comment.setComment(commentDto.getComment());
+        commentService.saveCommentData(comment);
         return new ResponseEntity<>("Comment saved successfully", HttpStatus.CREATED);
     }
 
@@ -44,7 +45,7 @@ public class CommentRestController {
     public ResponseEntity<String> deleteCommentById(@RequestParam Integer commentId){
         if (commentId == null){
             return new ResponseEntity<>("No Comment ID was given.", HttpStatus.NOT_FOUND);
-        }else {
+        }else{
             if (commentService.getCommentById(commentId) != null) {
                 commentService.deleteCommentById(commentId);
                 return new ResponseEntity<>("Comment deleted", HttpStatus.OK);

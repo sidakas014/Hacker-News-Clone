@@ -5,10 +5,9 @@ import com.MountBlue.Hacker.News.Clone.model.Comment;
 import com.MountBlue.Hacker.News.Clone.model.Post;
 import com.MountBlue.Hacker.News.Clone.respository.CommentRepository;
 import com.MountBlue.Hacker.News.Clone.respository.PostRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,15 +23,19 @@ public class CommentService {
 
 
     public List<Comment> getAllComment() {
-        List<Comment> commentList = commentRepository.findAll();
-        return commentList;
+        return commentRepository.findAll();
     }
 
     public List<Comment> getAllCommentByPost(int postId){
+        List<Comment> commentList = new ArrayList<>();
+        if(postRepository.findById(postId).isPresent()) {
             Post post = postRepository.findById(postId).get();
-            List<Comment> commentList =post.getCommentId();
+            commentList = post.getCommentId();
+            return commentList;
+        }else{
             return commentList;
         }
+    }
 
     public void saveCommentData(Comment comment) {
         commentRepository.save(comment);
@@ -43,7 +46,7 @@ public class CommentService {
     }
 
     public void UpdateCommentById(int commentId, CommentDto commentDto) {
-        if (commentRepository.existsById(commentId)) {
+        if (commentRepository.findById(commentId).isPresent()) {
             Comment newComment = commentRepository.findById(commentId).get();
             newComment.setName(commentDto.getName());
             newComment.setEmail(commentDto.getEmail());
