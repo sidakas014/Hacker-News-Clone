@@ -18,8 +18,12 @@ public class PostController {
     }
 
     @GetMapping("/getAllPost")
-    public List<Post> getAllPosts(){
-        return postService.getAllPost();
+    public List<Post> getAllPosts(@RequestParam(required = false) Integer postId){
+        if(postId==null) {
+            return postService.getAllPost();
+        }else{
+            return postService.getPostById(postId);
+        }
     }
 
     @PostMapping("/savePost")
@@ -40,5 +44,6 @@ public class PostController {
     public ResponseEntity<String> updatePost(@RequestParam int postId,@RequestBody PostDto postDto){
         return postService.UpdatePostById(postId,postDto);
     }
+
 
 }
