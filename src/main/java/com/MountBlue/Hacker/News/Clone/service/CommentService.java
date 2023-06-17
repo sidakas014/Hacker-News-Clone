@@ -26,13 +26,16 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<Comment> getAllCommentByPost(int postId) {
-        Post post = postRepository.findById(postId).get();
-        return post.getCommentId();
+    public ResponseEntity<String> getAllCommentByPost(int postId){
+        if(postRepository.existsById(postId)) {
+            Post post = postRepository.findById(postId).get();
+            List<Comment> commentList =post.getCommentId();
+            return new ResponseEntity<>("List of comment :"+commentList,HttpStatus.OK) ;
+        }else{
+            return new ResponseEntity<>("Post With the id "+postId+"Is not avaliable",HttpStatus.NOT_FOUND);
+        }
+
     }
-
-
-
     public ResponseEntity<String> saveCommentData(Comment comment) {
         commentRepository.save(comment);
         return new ResponseEntity<>("Comment is saved", HttpStatus.CREATED);
@@ -47,9 +50,9 @@ public class CommentService {
         }
     }
 
-    public ResponseEntity<String> UpdateCommentById(int postId, CommentDto commentDto){
-        if(commentRepository.existsById(postId)){
-            Comment newComment = commentRepository.findById(postId).get();
+    public ResponseEntity<String> UpdateCommentById(int commentId, CommentDto commentDto){
+        if(commentRepository.existsById(commentId)){
+            Comment newComment = commentRepository.findById(commentId).get();
             newComment.setName(commentDto.getName());
             newComment.setEmail(commentDto.getEmail());
             newComment.setComment(commentDto.getComment());
