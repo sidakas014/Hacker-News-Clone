@@ -21,30 +21,22 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public ResponseEntity<String> savePostData(Post post) {
+    public void savePostData(Post post) {
         postRepository.save(post);
-        return new ResponseEntity<>("Data is saved", HttpStatus.CREATED);
     }
 
-    public ResponseEntity<String> deletePostById(int postId) {
-        if(postRepository.existsById(postId)){
-            postRepository.deleteById(postId);
-            return new ResponseEntity<>("Post has been deleted successfully",HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>("Post has been not found",HttpStatus.NOT_FOUND);
-        }
+    public void deletePostById(int postId) {
+        postRepository.deleteById(postId);
+
     }
 
-    public ResponseEntity<String> UpdatePostById(int postId, PostDto postDto){
-        if(postRepository.existsById(postId)){
+    public void UpdatePostById(int postId, PostDto postDto) {
+        if (postRepository.existsById(postId)) {
             Post newPost = postRepository.findById(postId).get();
             newPost.setName(postDto.getName());
             newPost.setContent(postDto.getContent());
             newPost.setCreatedBy(postDto.getCreatedBy());
             postRepository.save(newPost);
-            return new ResponseEntity<>("Post Has been updated",HttpStatus.ACCEPTED);
-        }else{
-            return new ResponseEntity<>("Post with id is not present please create the new post",HttpStatus.NOT_FOUND);
         }
     }
 
@@ -52,4 +44,5 @@ public class PostService {
         List<Post> postList = postRepository.findById(postId).stream().toList();
         return postList;
     }
+
 }
