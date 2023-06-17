@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/HackerNews")
 public class CommentController {
     private final CommentService commentService;
-
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
@@ -26,7 +25,7 @@ public class CommentController {
     }
 
     @PostMapping("/saveComment")
-    public ResponseEntity<String> saveCommentData(@RequestParam(required = false) CommentDto commentDto){
+    public ResponseEntity<String> saveCommentData(@RequestBody CommentDto commentDto){
         Comment comment = new Comment();
         comment.setName(commentDto.getName());
         comment.setEmail(commentDto.getEmail());
@@ -35,12 +34,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/deleteComment")
-    public ResponseEntity<String> deleteCommentById(@RequestParam(required = false) Integer commentId){
+    public ResponseEntity<String> deleteCommentById(@RequestParam Integer commentId){
         if (commentId == null){
             return new ResponseEntity<>("No Comment ID was given.", HttpStatus.NOT_FOUND);
         }else {
             commentService.deleteCommentById(commentId);
-            return new ResponseEntity<>("Comment deleted", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Comment deleted", HttpStatus.OK);
         }
     }
 

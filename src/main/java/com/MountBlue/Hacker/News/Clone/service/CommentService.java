@@ -14,17 +14,15 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository,PostRepository postRepository) {
         this.commentRepository = commentRepository;
-    }
-
-    public CommentService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
+
 
     public ResponseEntity<String> getAllComment() {
         List<Comment> commentList = commentRepository.findAll();
@@ -36,7 +34,7 @@ public class CommentService {
             List<Comment> commentList =post.getCommentId();
             return new ResponseEntity<>("List of comment :"+commentList,HttpStatus.OK) ;
         }else{
-            return new ResponseEntity<>("Post With the id "+postId+"Is not avaliable",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Post With the id "+postId+"Is not available",HttpStatus.NOT_FOUND);
         }
 
     }
