@@ -15,9 +15,9 @@ public class PostRestController {
     private final PostService postService;
 
     public PostRestController(PostService postService) {
-
         this.postService = postService;
     }
+
     @GetMapping("/getAllPost")
     public List<Post> getAllPosts(@RequestParam(required = false) Integer postId){
         if(postId==null) {
@@ -56,6 +56,5 @@ public class PostRestController {
             return new ResponseEntity<>("Post with id is not present please create the new post",HttpStatus.NOT_FOUND);
         }
     }
-
 
 }

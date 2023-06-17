@@ -3,8 +3,6 @@ package com.MountBlue.Hacker.News.Clone.service;
 import com.MountBlue.Hacker.News.Clone.dto.PostDto;
 import com.MountBlue.Hacker.News.Clone.model.Post;
 import com.MountBlue.Hacker.News.Clone.respository.PostRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +42,4 @@ public class PostService {
         List<Post> postList = postRepository.findById(postId).stream().toList();
         return postList;
     }
-
 }
