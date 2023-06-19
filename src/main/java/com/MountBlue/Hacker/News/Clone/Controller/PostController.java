@@ -31,8 +31,9 @@ public class PostController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "search", defaultValue = "") String search, Model model){
-        postService.search(search, model);
+       List<Post> postList = postService.search(search, model);
         model.addAttribute("search", search);
+        model.addAttribute("postList",postList);
         return "search";
     }
 }
