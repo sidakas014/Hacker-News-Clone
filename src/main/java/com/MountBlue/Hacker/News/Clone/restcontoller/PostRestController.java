@@ -33,6 +33,7 @@ public class PostRestController {
         post.setName(postDto.getName());
         post.setContent(postDto.getContent());
         post.setCreatedBy(postDto.getCreatedBy());
+        post.setDomainName(postDto.getDomainName());
         postService.savePostData(post);
         return new ResponseEntity<>("Data is saved", HttpStatus.CREATED);
     }

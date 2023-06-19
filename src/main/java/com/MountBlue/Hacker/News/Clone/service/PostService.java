@@ -35,6 +35,7 @@ public class PostService {
             newPost.setName(postDto.getName());
             newPost.setContent(postDto.getContent());
             newPost.setCreatedBy(postDto.getCreatedBy());
+            newPost.setDomainName(postDto.getDomainName());
             postRepository.save(newPost);
         }
     }
@@ -44,8 +45,11 @@ public class PostService {
         return postList;
     }
 
-    public List<Post> search(String search, Model model) {
+    public List<Post> search(String search) {
         return postRepository.findByNameContainingIgnoreCaseOrContentContainingIgnoreCaseOrCreatedByContainingIgnoreCase
                 (search, search, search);
+    }
+    public List<Post> filterByDomainName(String word){
+        return postRepository.findAllByDomainName(word);
     }
 }

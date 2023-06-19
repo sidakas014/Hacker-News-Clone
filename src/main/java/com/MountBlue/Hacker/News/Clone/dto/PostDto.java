@@ -11,4 +11,5 @@ public class PostDto {
     private String name;
     private String content;
     private String createdBy;
+    private String domainName;
 }

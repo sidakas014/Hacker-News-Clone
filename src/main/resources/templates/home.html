@@ -69,7 +69,7 @@
                     <tbody>
                     <tr class='athing' id='36369553'>
                         <td align="right" class="title" valign="top">
-                            <span class="rank">1.</span>
+                            <span class="rank" th:text="${post.postId}"></span>
                         </td>
                         <td class="votelinks" valign="top">
                             <div style="text-align: center;">
@@ -80,9 +80,9 @@
                         </td>
                         <td class="title">
     <span class="titleline">
-      <a th:href="@{${post.name}}" rel="noreferrer" th:text="${post.content }"></a>
-      <span class="sitebit comhead"> ( <a href="from?site=ionathan.ch">
-          <span class="sitestr">ionathan.ch</span>
+      <a th:href="@{${post.content}}" rel="noreferrer" th:text="${post.name}"></a>
+      <span class="sitebit comhead"> ( <a th:href="@{'/api/v1/HackerNews/front?domainName='+${post.domainName}}">
+          <span th:text="${post.domainName}"></span>
         </a>) </span>
     </span>
                         </td>
@@ -92,7 +92,7 @@
                         <td class="subtext">
     <span class="subline">
       <span class="score" id="score_36369553">58 points</span> by <a class="hnuser"
-                                                                     href="user?id=g0xA52A2A">g0xA52A2A</a>
+                                                                     th:href="@{/search}" th:value="${post.createdBy}"></a>
       <span class="age" title="2023-06-17T12:13:22">
         <a href="item?id=36369553">51 minutes ago</a>
       </span>

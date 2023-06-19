@@ -31,9 +31,15 @@ public class PostController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "search", defaultValue = "") String search, Model model){
-       List<Post> postList = postService.search(search, model);
+       List<Post> postList = postService.search(search);
         model.addAttribute("search", search);
         model.addAttribute("postList",postList);
         return "search";
+    }
+    @GetMapping("/front")
+    public String filterByDomainName(@RequestParam("domainName") String domainName,Model model){
+        List<Post> postList = postService.filterByDomainName(domainName);
+        model.addAttribute("postList",postList);
+        return "home";
     }
 }
