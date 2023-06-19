@@ -5,6 +5,7 @@ import com.MountBlue.Hacker.News.Clone.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public class PostController {
         List<Post> postList = postService.getAllPost();
         model.addAttribute("postList",postList);
         return "home";
+    }
+    @GetMapping("/postView/{id}")
+    public String postView(Model model, @PathVariable("postId") int id ){
+        return "Hello";
     }
 }
