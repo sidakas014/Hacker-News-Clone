@@ -42,7 +42,7 @@
                         </a>
                     </td>
                     <td style="line-height: 12pt; height: 10px; padding-left: 2%; position: relative;">
-                        <form th:action="@{/api/v1/HackerNews/search}" method="get">
+                        <form th:action="@{/api/v1/HackerNews/search}" method="get" >
                         <input type="search" placeholder="Search stories by title, url or author"
                                id="search" name="search" th:value="${search}" th:onchange="@{/api/v1/HackerNews/search}"
                                style="width: 1300px; height: 40px; font-size: 16px; padding-left: 40px;">

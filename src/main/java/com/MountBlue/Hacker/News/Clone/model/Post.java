@@ -19,6 +19,7 @@ public class Post {
     @Column(name = "post_id")
     private int postId;
     private String name;
+    private String domainName;
     @Column(columnDefinition = "TEXT")
     private String content;
     private String createdBy;
@@ -27,6 +28,5 @@ public class Post {
     private Date createdAt;
     @OneToMany
     @JsonIgnore
-
     private List<Comment> commentId;
 }
