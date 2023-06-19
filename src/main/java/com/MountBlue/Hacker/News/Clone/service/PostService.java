@@ -45,9 +45,7 @@ public class PostService {
     }
 
     public List<Post> search(String search, Model model) {
-        List<Post> post = postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrAuthorContainingIgnoreCase
+        return postRepository.findByNameContainingIgnoreCaseOrContentContainingIgnoreCaseOrCreatedByContainingIgnoreCase
                 (search, search, search);
-        model.addAttribute("posts", post);
-        return post;
     }
 }
