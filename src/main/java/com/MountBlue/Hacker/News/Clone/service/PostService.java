@@ -4,6 +4,7 @@ import com.MountBlue.Hacker.News.Clone.dto.PostDto;
 import com.MountBlue.Hacker.News.Clone.model.Post;
 import com.MountBlue.Hacker.News.Clone.respository.PostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -41,5 +42,12 @@ public class PostService {
     public List<Post> getPostById(int postId) {
         List<Post> postList = postRepository.findById(postId).stream().toList();
         return postList;
+    }
+
+    public List<Post> search(String search, Model model) {
+        List<Post> post = postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrAuthorContainingIgnoreCase
+                (search, search, search);
+        model.addAttribute("posts", post);
+        return post;
     }
 }

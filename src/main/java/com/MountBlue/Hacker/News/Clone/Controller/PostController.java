@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,5 +27,12 @@ public class PostController {
     @GetMapping("/postView/{id}")
     public String postView(Model model, @PathVariable("postId") int id ){
         return "Hello";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "search", defaultValue = "") String search, Model model){
+        postService.search(search, model);
+        model.addAttribute("search", search);
+        return "search";
     }
 }
